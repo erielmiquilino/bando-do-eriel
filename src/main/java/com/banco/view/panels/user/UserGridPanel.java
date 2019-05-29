@@ -1,5 +1,6 @@
 package com.banco.view.panels.user;
 
+import com.banco.model.User;
 import com.banco.view.dialogs.UserDialog;
 
 import javax.swing.*;
@@ -19,10 +20,9 @@ public class UserGridPanel {
         inclurButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserDialog dialog = new UserDialog();
+                UserDialog dialog = new UserDialog(new User());
                 dialog.pack();
                 dialog.setVisible(true);
-                System.exit(0);
             }
         });
         editarButton.addActionListener(new ActionListener() {

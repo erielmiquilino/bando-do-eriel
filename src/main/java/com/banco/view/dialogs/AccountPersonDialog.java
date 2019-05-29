@@ -1,23 +1,20 @@
 package com.banco.view.dialogs;
 
-import com.banco.model.User;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class UserDialog extends JDialog {
+public class AccountPersonDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
-    private JButton buttonCancel;
-    private JPasswordField passwordField2;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JTable table1;
+    private JButton editarButton;
+    private JButton excluirButton;
 
-    public UserDialog(User user) {
-        setTitle("Usuário");
+    public AccountPersonDialog() {
+        setTitle("Contas");
         setContentPane(contentPane);
-        setSize(new Dimension(350, 125));
+        setSize(new Dimension(481, 490));
         setLocationRelativeTo(null);
         setModal(true);
         setResizable(false);
@@ -29,33 +26,25 @@ public class UserDialog extends JDialog {
             }
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                onCancel();
+                onOK();
             }
         });
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                onOK();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     private void onOK() {
-        dispose();
-    }
-
-    private void onCancel() {
+        // add your code here
         dispose();
     }
 

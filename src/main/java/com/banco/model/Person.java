@@ -1,19 +1,19 @@
 package com.banco.model;
 
-public abstract class Person {
+import com.banco.model.base.BaseModel;
 
-    private int id;
+import java.time.LocalDate;
+
+public class Person extends BaseModel {
+
     private String name;
     private String telephone;
     private Address Address;
 
-    public int getId() {
-        return id;
-    }
+    private String cpfCnpj;
+    private String registration;
+    private LocalDate date;
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -37,5 +37,29 @@ public abstract class Person {
 
     public void setAddress(com.banco.model.Address address) {
         Address = address;
+    }
+
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
+    }
+
+    public String getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(String registration) {
+        this.registration = registration;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

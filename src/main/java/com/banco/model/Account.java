@@ -1,20 +1,13 @@
 package com.banco.model;
 
-public class Account {
+import com.banco.model.base.BaseModel;
 
+public class Account extends BaseModel {
 
-    private int id;
     private long agency;
     private String account;
     private AccountType accountType;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public long getAgency() {
         return agency;

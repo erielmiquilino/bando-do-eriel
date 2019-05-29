@@ -1,26 +1,23 @@
 package com.banco.view.dialogs;
 
-import com.banco.model.User;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class UserDialog extends JDialog {
+public class AccountPersonFormDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JPasswordField passwordField2;
+    private JComboBox comboBox1;
     private JTextField textField1;
     private JTextField textField2;
 
-    public UserDialog(User user) {
-        setTitle("Usuário");
+    public AccountPersonFormDialog() {
+        setTitle("Conta");
         setContentPane(contentPane);
-        setSize(new Dimension(350, 125));
+        setSize(new Dimension(300,125));
         setLocationRelativeTo(null);
         setModal(true);
-        setResizable(false);
         getRootPane().setDefaultButton(buttonOK);
 
         buttonOK.addActionListener(new ActionListener() {
@@ -52,11 +49,14 @@ public class UserDialog extends JDialog {
     }
 
     private void onOK() {
+        // add your code here
         dispose();
     }
 
     private void onCancel() {
+        // add your code here if necessary
         dispose();
     }
+
 
 }
