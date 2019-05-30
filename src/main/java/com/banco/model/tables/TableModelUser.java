@@ -86,12 +86,18 @@ public class TableModelUser extends AbstractTableModel {
         fireTableRowsInserted(lastIndex, lastIndex);
     }
 
+    public void updateUser(User user ,int index) {
+        this.userList.set(index, user);
+        fireTableDataChanged();
+    }
+
+
     public void removeSelectedUser(int lineIndex) {
         this.userList.remove(lineIndex);
         fireTableDataChanged();
     }
 
-    public void addAccounts(List<User> userList) {
+    public void addUsers(List<User> userList) {
         int index = getRowCount();
         this.userList.addAll(userList);
         fireTableRowsInserted(index, index + userList.size());
@@ -101,5 +107,4 @@ public class TableModelUser extends AbstractTableModel {
         this.userList.clear();
         fireTableDataChanged();
     }
-
 }

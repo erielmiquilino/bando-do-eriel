@@ -1,5 +1,7 @@
 package com.banco.view.dialogs;
 
+import com.banco.model.tables.TableModelAccount;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -7,9 +9,11 @@ import java.awt.event.*;
 public class AccountPersonDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
-    private JTable table1;
+    private JTable accountTable;
     private JButton editarButton;
     private JButton excluirButton;
+
+    private TableModelAccount tableModelAccount;
 
     public AccountPersonDialog() {
         setTitle("Contas");
@@ -48,4 +52,14 @@ public class AccountPersonDialog extends JDialog {
         dispose();
     }
 
+    public TableModelAccount getTableModelAccount() {
+        if (tableModelAccount == null) {
+            tableModelAccount = new TableModelAccount();
+        }
+        return tableModelAccount;
+    }
+
+    private void createUIComponents() {
+       accountTable = new JTable(getTableModelAccount());
+    }
 }

@@ -3,16 +3,20 @@ package com.banco.model;
 import com.banco.model.base.BaseModel;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Person extends BaseModel {
 
     private String name;
     private String telephone;
-    private Address Address;
-
+    private Address Address = new Address();
+    private int modality;
     private String cpfCnpj;
     private String registration;
     private LocalDate date;
+
+    private List<Account> accountList = new ArrayList<>();
 
 
     public String getName() {
@@ -39,6 +43,14 @@ public class Person extends BaseModel {
         Address = address;
     }
 
+    public int getModality() {
+        return modality;
+    }
+
+    public void setModality(int modality) {
+        this.modality = modality;
+    }
+
     public String getCpfCnpj() {
         return cpfCnpj;
     }
@@ -61,5 +73,13 @@ public class Person extends BaseModel {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 }

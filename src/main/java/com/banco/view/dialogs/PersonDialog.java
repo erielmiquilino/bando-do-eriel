@@ -1,31 +1,38 @@
 package com.banco.view.dialogs;
 
+import com.banco.model.Person;
 import com.banco.view.panels.person.PersonLegalFormPanel;
 import com.banco.view.panels.person.PersonPhysicsFormPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class PersonDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JPanel panelType;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField textField6;
-    private JTextField textField7;
-    private JTextField textField8;
-    private JComboBox comboBox1;
+    private JTextField txtName;
+    private JTextField txtTelephone;
+    private JTextField txtZipCode;
+    private JTextField txtAddress;
+    private JTextField txtDistrict;
+    private JTextField txtCity;
+    private JTextField txtAddressNumber;
+    private JTextField txtState;
+    private JComboBox cmbModality;
 
     private PersonLegalFormPanel personLegalFormPanel;
     private PersonPhysicsFormPanel personPhysicsFormPanel;
 
-    public PersonDialog() {
+    private Person person;
+
+    public PersonDialog(Person person) {
+        this.person = person;
+
         setTitle("Pessoa");
         setContentPane(contentPane);
         setSize(new Dimension(500, 375));
@@ -33,6 +40,7 @@ public class PersonDialog extends JDialog {
         setModal(true);
         setResizable(false);
         getRootPane().setDefaultButton(buttonOK);
+        setFormValue();
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -54,7 +62,7 @@ public class PersonDialog extends JDialog {
             }
         });
 
-        comboBox1.addActionListener(new ActionListener() {
+        cmbModality.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JComboBox comboBox = (JComboBox) e.getSource();
@@ -80,6 +88,7 @@ public class PersonDialog extends JDialog {
     }
 
     private void onOK() {
+        getFormValue();
         dispose();
     }
 
@@ -110,5 +119,65 @@ public class PersonDialog extends JDialog {
         panelType.add(getPersonPhysicsFormPanel().getContentPane());
         panelType.add(getPersonLegalFormPanel().getContentPane());
 
+    }
+
+    private void setFormValue() {
+        txtName.setText(this.person.getName());
+        txtTelephone.setText(this.person.getTelephone());
+        txtZipCode.setText(this.person.getAddress().getZipCode());
+        txtAddress.setText(this.person.getAddress().getAddress());
+        txtAddressNumber.setText(this.person.getAddress().getAddressNumber());
+        txtDistrict.setText(this.person.getAddress().getDistrict());
+        txtCity.setText(this.person.getAddress().getCity());
+        txtState.setText(this.person.getAddress().getState());
+        cmbModality.setSelectedIndex(this.person.getModality());
+
+        if (this.person.getModality() == 0) {
+            getPersonPhysicsFormPanel().getTxtCpf().setText(this.person.getCpfCnpj());
+            getPersonPhysicsFormPanel().getTxtRg().setText(this.person.getRegistration());
+
+            if (this.person.getDate() != null) {
+                getPersonPhysicsFormPanel().getTxaDateOfBirth()
+                        .setDate(Date.from(this.person.getDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            }
+
+        } else {
+            getPersonLegalFormPanel().getTxtCnpj().setText(this.person.getCpfCnpj());
+            getPersonLegalFormPanel().getTxtIE().setText(this.person.getRegistration());
+
+            if (this.person.getDate() != null) {
+                getPersonLegalFormPanel().getTxtOpenigDate()
+                        .setDate(Date.from(this.person.getDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            }
+        }
+    }
+
+    private void getFormValue() {
+
+        this.person.setName(txtName.getText());
+        this.person.setTelephone(txtTelephone.getText());
+        this.person.getAddress().setZipCode(txtZipCode.getText());
+        this.person.getAddress().setAddress(txtAddress.getText());
+        this.person.getAddress().setAddressNumber(txtAddressNumber.getText());
+        this.person.getAddress().setDistrict(txtDistrict.getText());
+        this.person.getAddress().setCity(txtCity.getText());
+        this.person.getAddress().setState(txtState.getText());
+        this.person.setModality(cmbModality.getSelectedIndex());
+
+        if (this.person.getModality() == 0) {
+            this.person.setCpfCnpj(getPersonPhysicsFormPanel().getTxtCpf().getText());
+            this.person.setRegistration(getPersonPhysicsFormPanel().getTxtRg().getText());
+            this.person.setDate(getPersonPhysicsFormPanel()
+                    .getTxaDateOfBirth().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        } else {
+            this.person.setCpfCnpj(getPersonLegalFormPanel().getTxtCnpj().getText());
+            this.person.setRegistration(getPersonLegalFormPanel().getTxtIE().getText());
+            this.person.setDate(getPersonLegalFormPanel()
+                    .getTxtOpenigDate().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        }
+    }
+
+    public Person getPerson() {
+        return person;
     }
 }

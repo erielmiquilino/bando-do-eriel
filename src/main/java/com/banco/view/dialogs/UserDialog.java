@@ -10,11 +10,15 @@ public class UserDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JPasswordField passwordField2;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JPasswordField txtPassword;
+    private JTextField txtEmail;
+    private JTextField txtName;
+
+    private User user;
 
     public UserDialog(User user) {
+        this.user = user;
+
         setTitle("Usuário");
         setContentPane(contentPane);
         setSize(new Dimension(350, 125));
@@ -22,6 +26,7 @@ public class UserDialog extends JDialog {
         setModal(true);
         setResizable(false);
         getRootPane().setDefaultButton(buttonOK);
+        setFormValues();
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -52,6 +57,7 @@ public class UserDialog extends JDialog {
     }
 
     private void onOK() {
+        getFormValues();
         dispose();
     }
 
@@ -59,4 +65,19 @@ public class UserDialog extends JDialog {
         dispose();
     }
 
+    private void setFormValues () {
+        txtName.setText(this.user.getName());
+        txtEmail.setText(this.user.getMail());
+        txtPassword.setText(this.user.getPassword());
+    }
+
+    private void getFormValues () {
+        this.user.setName(txtName.getText());
+        this.user.setMail(txtEmail.getText());
+        this.user.setPassword(String.valueOf(txtPassword.getPassword()));
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

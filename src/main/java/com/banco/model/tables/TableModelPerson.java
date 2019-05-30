@@ -84,6 +84,11 @@ public class TableModelPerson extends AbstractTableModel {
         return this.personList.get(lineIndex);
     }
 
+    public void updatePerson(Person person, int index) {
+        this.personList.set(index, person);
+        fireTableDataChanged();
+    }
+
     public void addPerson(Person person) {
         this.personList.add(person);
         int lastIndex = getRowCount() - 1;
@@ -95,7 +100,7 @@ public class TableModelPerson extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public void addAccounts(List<Person> personList) {
+    public void addPersons(List<Person> personList) {
         int index = getRowCount();
         this.personList.addAll(personList);
         fireTableRowsInserted(index, index + personList.size());

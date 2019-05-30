@@ -75,7 +75,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="16ed3" class="javax.swing.JTable" binding="table1" default-binding="true">
+              <component id="16ed3" class="javax.swing.JTable" binding="accountTable" custom-create="true">
                 <constraints/>
                 <properties/>
               </component>
