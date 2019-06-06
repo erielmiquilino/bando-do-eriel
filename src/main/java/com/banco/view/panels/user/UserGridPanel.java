@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 
 public class UserGridPanel {
     private JPanel userGridPanel;
-    private JTextField textField1;
-    private JButton pesquisarButton;
     private JButton inclurButton;
     private JButton editarButton;
     private JButton excluirButton;
@@ -34,8 +32,8 @@ public class UserGridPanel {
                 dialog.pack();
                 dialog.setVisible(true);
 
-                getTableModelUser().addUser(dialog.getUser());
 
+                getTableModelUser().addUser(dialog.getUser());
             }
         });
         editarButton.addActionListener(new ActionListener() {
@@ -68,12 +66,7 @@ public class UserGridPanel {
                 }
             }
         });
-        pesquisarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
     }
 
     public JPanel getUserGridPanel() {

@@ -13,6 +13,7 @@ public class Main {
         LoginDialog loginDialog = new LoginDialog();
         loginDialog.setVisible(true);
 
+
     }
 
 }

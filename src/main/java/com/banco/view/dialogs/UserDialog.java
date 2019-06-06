@@ -1,5 +1,6 @@
 package com.banco.view.dialogs;
 
+import com.banco.controller.ValidationUser;
 import com.banco.model.User;
 
 import javax.swing.*;
@@ -58,7 +59,9 @@ public class UserDialog extends JDialog {
 
     private void onOK() {
         getFormValues();
-        dispose();
+        if (ValidationUser.isValidUser(user)) {
+            dispose();
+        }
     }
 
     private void onCancel() {

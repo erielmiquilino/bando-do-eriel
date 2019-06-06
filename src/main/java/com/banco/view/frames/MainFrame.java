@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
     private MainPanel mainPanel;
 
     public MainFrame() {
-        setTitle("Bando do Eriel");
+        setTitle("banco do ian");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setSize(new Dimension(800, 600));

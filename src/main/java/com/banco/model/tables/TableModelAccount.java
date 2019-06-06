@@ -66,7 +66,7 @@ public class TableModelAccount extends AbstractTableModel {
         Account account = accountList.get(rowIndex);
         switch (columnIndex){
             case ID:
-                return account.getAccount();
+                return account.getId();
             case AGENCY:
                 return account.getAgency();
             case ACCOUNT:
@@ -90,6 +90,11 @@ public class TableModelAccount extends AbstractTableModel {
         fireTableRowsInserted(lastIndex, lastIndex);
     }
 
+    public void updateAccount(Account account, int index) {
+        this.accountList.set(index, account);
+        fireTableDataChanged();
+    }
+
     public void removeSelectedAccount(int lineIndex) {
         this.accountList.remove(lineIndex);
         fireTableDataChanged();
@@ -105,5 +110,6 @@ public class TableModelAccount extends AbstractTableModel {
         this.accountList.clear();
         fireTableDataChanged();
     }
+
 
 }

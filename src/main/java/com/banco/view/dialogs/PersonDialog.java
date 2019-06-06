@@ -1,5 +1,6 @@
 package com.banco.view.dialogs;
 
+import com.banco.controller.ValidationPerson;
 import com.banco.model.Person;
 import com.banco.view.panels.person.PersonLegalFormPanel;
 import com.banco.view.panels.person.PersonPhysicsFormPanel;
@@ -40,6 +41,11 @@ public class PersonDialog extends JDialog {
         setModal(true);
         setResizable(false);
         getRootPane().setDefaultButton(buttonOK);
+
+        Date date = new Date(System.currentTimeMillis());
+        personLegalFormPanel.getTxtOpenigDate().setDate(date);
+        personPhysicsFormPanel.getTxaDateOfBirth().setDate(date);
+
         setFormValue();
 
         buttonOK.addActionListener(new ActionListener() {
@@ -89,7 +95,9 @@ public class PersonDialog extends JDialog {
 
     private void onOK() {
         getFormValue();
-        dispose();
+        if (ValidationPerson.isValidPerson(person)) {
+            dispose();
+        }
     }
 
     private void onCancel() {

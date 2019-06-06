@@ -14,7 +14,7 @@ public class LoginDialog extends JDialog {
     private JTextField txtUser;
 
     public LoginDialog() {
-        setTitle("Bem vindo ao Bando do Eriel");
+        setTitle("Bem vindo ao banco do ian");
         setSize(new Dimension(300,150));
         setLocationRelativeTo(null);
         setContentPane(contentPane);

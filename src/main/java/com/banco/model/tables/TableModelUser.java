@@ -107,4 +107,5 @@ public class TableModelUser extends AbstractTableModel {
         this.userList.clear();
         fireTableDataChanged();
     }
+
 }

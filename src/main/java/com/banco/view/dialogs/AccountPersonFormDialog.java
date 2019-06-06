@@ -1,5 +1,8 @@
 package com.banco.view.dialogs;
 
+import com.banco.model.Account;
+import com.banco.model.AccountType;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,17 +11,22 @@ public class AccountPersonFormDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JComboBox comboBox1;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JComboBox<AccountType> cmbAccountType;
+    private JTextField txtAccount;
+    private JTextField txtAgency;
 
-    public AccountPersonFormDialog() {
+    private Account account;
+
+    public AccountPersonFormDialog(Account account) {
+        this.account = account;
+
         setTitle("Conta");
         setContentPane(contentPane);
         setSize(new Dimension(300,125));
         setLocationRelativeTo(null);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        setFormValues();
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -49,14 +57,34 @@ public class AccountPersonFormDialog extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
+        getFormValues();
         dispose();
+    }
+
+    private void setFormValues () {
+        txtAccount.setText(account.getAccount());
+        txtAgency.setText(String.valueOf(account.getAgency()));
+        cmbAccountType.setSelectedItem(account.getAccountType());
+    }
+
+
+    private void getFormValues () {
+        account.setAccount(txtAccount.getText());
+        account.setAgency(Long.parseLong(txtAgency.getText()));
+        account.setAccountType((AccountType) cmbAccountType.getSelectedItem());
+    }
+
+    public Account getAccount() {
+        return account;
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 
 
+    private void createUIComponents() {
+        cmbAccountType = new JComboBox<>();
+        cmbAccountType.setModel(new DefaultComboBoxModel<>(AccountType.values()));
+    }
 }
