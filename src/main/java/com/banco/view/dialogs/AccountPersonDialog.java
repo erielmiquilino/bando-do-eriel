@@ -1,6 +1,7 @@
 package com.banco.view.dialogs;
 
-import com.banco.model.Account;
+import com.banco.model.account.Account;
+import com.banco.model.account.AccountDao;
 import com.banco.model.tables.TableModelAccount;
 
 import javax.swing.*;
@@ -49,7 +50,9 @@ public class AccountPersonDialog extends JDialog {
                     dialog.pack();
                     dialog.setVisible(true);
 
-                    getTableModelAccount().updateAccount(dialog.getAccount(), index);
+                    if (dialog.isValidDialog()) {
+                        getTableModelAccount().updateAccount(dialog.getAccount(), index);
+                    }
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione uma linha para continuar!");

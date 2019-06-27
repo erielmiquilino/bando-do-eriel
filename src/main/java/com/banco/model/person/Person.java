@@ -1,5 +1,6 @@
-package com.banco.model;
+package com.banco.model.person;
 
+import com.banco.model.account.Account;
 import com.banco.model.base.BaseModel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @Table
 @Entity
 public class Person extends BaseModel {
@@ -22,7 +23,7 @@ public class Person extends BaseModel {
 
     private String telephone;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, optional = false)
     @JoinColumn(name = "addressId")
     private Address Address = new Address();
 
@@ -34,7 +35,7 @@ public class Person extends BaseModel {
 
     private LocalDate date;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "person", orphanRemoval = true, targetEntity = Account.class)
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, orphanRemoval = false, mappedBy = "person", targetEntity = Account.class)
     private List<Account> accountList = new ArrayList<>();
 
 

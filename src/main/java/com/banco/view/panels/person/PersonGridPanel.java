@@ -1,7 +1,8 @@
 package com.banco.view.panels.person;
 
-import com.banco.model.Account;
-import com.banco.model.Person;
+import com.banco.model.account.Account;
+import com.banco.model.account.AccountDao;
+import com.banco.model.person.Person;
 import com.banco.model.tables.TableModelPerson;
 import com.banco.view.dialogs.AccountPersonDialog;
 import com.banco.view.dialogs.AccountPersonFormDialog;
@@ -21,22 +22,26 @@ public class PersonGridPanel {
     private JButton incluirContaButton;
     private JTable personTable;
 
+    private AccountDao accountDao;
+
     private TableModelPerson tableModelPerson;
 
     public PersonGridPanel() {
+
         incluirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Person person = new Person();
 
-                person.setId(getTableModelPerson().getRowCount() + 1);
                 person.setCreationDate(LocalDateTime.now());
 
                 PersonDialog dialog = new PersonDialog(person);
                 dialog.pack();
                 dialog.setVisible(true);
 
-                getTableModelPerson().addPerson(dialog.getPerson());
+                if (dialog.isVaidDialog()) {
+                    getTableModelPerson().addPerson(dialog.getPerson());
+                }
             }
         });
         editarButton.addActionListener(new ActionListener() {
@@ -52,7 +57,9 @@ public class PersonGridPanel {
                     dialog.pack();
                     dialog.setVisible(true);
 
-                    getTableModelPerson().updatePerson(dialog.getPerson(), index);
+                    if (dialog.isVaidDialog()) {
+                        getTableModelPerson().updatePerson(dialog.getPerson(), index);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione uma linha para continuar!");
                 }
@@ -69,12 +76,7 @@ public class PersonGridPanel {
                 }
             }
         });
-        visualizarContasDaPessoaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
         incluirContaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,17 +86,22 @@ public class PersonGridPanel {
                     Account account = new Account();
                     Person person = getTableModelPerson().getSelectedPerson(index);
 
-                    account.setId(person.getAccountList().size() + 1);
                     account.setCreationDate(LocalDateTime.now());
+                    account.setPerson(person);
 
                     AccountPersonFormDialog dialog = new AccountPersonFormDialog(account);
                     dialog.pack();
                     dialog.setVisible(true);
 
-
                     person.getAccountList().add(dialog.getAccount());
 
-                    getTableModelPerson().updatePerson(person, index);
+
+                    if (dialog.isValidDialog()) {
+                        accountDao = new AccountDao();
+                        accountDao.saveAccount(account);
+                        getTableModelPerson().updatePerson(person, index);
+                    }
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione uma linha para continuar!");
                 }

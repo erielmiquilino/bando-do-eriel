@@ -1,19 +1,17 @@
-package com.banco.model;
+package com.banco.model.account;
 
 import com.banco.model.base.BaseModel;
+import com.banco.model.person.Person;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @Table
 @Entity
 public class Account extends BaseModel {
@@ -25,7 +23,7 @@ public class Account extends BaseModel {
 
     private AccountType accountType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "personId")
     private Person person;
 

@@ -1,7 +1,7 @@
 package com.banco.view.dialogs;
 
 import com.banco.controller.ValidationPerson;
-import com.banco.model.Person;
+import com.banco.model.person.Person;
 import com.banco.view.panels.person.PersonLegalFormPanel;
 import com.banco.view.panels.person.PersonPhysicsFormPanel;
 
@@ -25,6 +25,8 @@ public class PersonDialog extends JDialog {
     private JTextField txtAddressNumber;
     private JTextField txtState;
     private JComboBox cmbModality;
+
+    private boolean vaidDialog;
 
     private PersonLegalFormPanel personLegalFormPanel;
     private PersonPhysicsFormPanel personPhysicsFormPanel;
@@ -96,11 +98,13 @@ public class PersonDialog extends JDialog {
     private void onOK() {
         getFormValue();
         if (ValidationPerson.isValidPerson(person)) {
+            vaidDialog = true;
             dispose();
         }
     }
 
     private void onCancel() {
+        vaidDialog = false;
         dispose();
     }
 
@@ -187,5 +191,9 @@ public class PersonDialog extends JDialog {
 
     public Person getPerson() {
         return person;
+    }
+
+    public boolean isVaidDialog() {
+        return vaidDialog;
     }
 }

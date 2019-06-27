@@ -95,19 +95,11 @@ public class TableModelUser extends AbstractTableModel {
 
 
     public void removeSelectedUser(int lineIndex) {
+        this.userDao.deleteUser(getSelectedUser(lineIndex));
         this.userList.remove(lineIndex);
         fireTableDataChanged();
     }
 
-    public void addUsers(List<User> userList) {
-        int index = getRowCount();
-        this.userList.addAll(userList);
-        fireTableRowsInserted(index, index + userList.size());
-    }
 
-    public void clearTable() {
-        this.userList.clear();
-        fireTableDataChanged();
-    }
 
 }

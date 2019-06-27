@@ -16,6 +16,7 @@ public class UserDialog extends JDialog {
     private JTextField txtName;
 
     private User user;
+    private boolean validDialog;
 
     public UserDialog(User user) {
         this.user = user;
@@ -60,11 +61,13 @@ public class UserDialog extends JDialog {
     private void onOK() {
         getFormValues();
         if (ValidationUser.isValidUser(user)) {
+            validDialog = true;
             dispose();
         }
     }
 
     private void onCancel() {
+        validDialog = false;
         dispose();
     }
 
@@ -82,5 +85,9 @@ public class UserDialog extends JDialog {
 
     public User getUser() {
         return user;
+    }
+
+    public boolean isValidDialog() {
+        return validDialog;
     }
 }

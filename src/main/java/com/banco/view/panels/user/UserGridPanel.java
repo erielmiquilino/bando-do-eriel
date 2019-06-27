@@ -32,7 +32,9 @@ public class UserGridPanel {
                 dialog.pack();
                 dialog.setVisible(true);
 
-                getTableModelUser().addUser(dialog.getUser());
+                if (dialog.isValidDialog()) {
+                    getTableModelUser().addUser(dialog.getUser());
+                }
             }
         });
         editarButton.addActionListener(new ActionListener() {
@@ -48,7 +50,9 @@ public class UserGridPanel {
                     dialog.pack();
                     dialog.setVisible(true);
 
-                    getTableModelUser().updateUser(user, index);
+                    if (dialog.isValidDialog()) {
+                        getTableModelUser().updateUser(user, index);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione uma linha para continuar!");
                 }

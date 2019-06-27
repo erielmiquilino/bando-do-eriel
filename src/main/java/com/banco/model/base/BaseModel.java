@@ -1,13 +1,21 @@
 package com.banco.model.base;
 
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = false)
+@ToString
 @MappedSuperclass
 public class BaseModel {
 
@@ -20,28 +28,4 @@ public class BaseModel {
     private LocalDateTime lastChangeDate;
 
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public LocalDateTime getLastChangeDate() {
-        return lastChangeDate;
-    }
-
-    public void setLastChangeDate(LocalDateTime lastChangeDate) {
-        this.lastChangeDate = lastChangeDate;
-    }
 }

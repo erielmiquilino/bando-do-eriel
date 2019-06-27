@@ -1,6 +1,7 @@
 package com.banco.model.tables;
 
-import com.banco.model.Person;
+import com.banco.model.person.Person;
+import com.banco.model.person.PersonDao;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -13,15 +14,14 @@ public class TableModelPerson extends AbstractTableModel {
     private static final int TELEPHONE = 2;
     private static final int CPF_CNPJ = 3;
 
+    private PersonDao personDao;
     private String[] columns = new String[] {"ID","Nome","Telefone","CPF CNPJ"};
     private List<Person> personList;
 
-    public TableModelPerson(List<Person> personList) {
-        this.personList = personList;
-    }
 
     public TableModelPerson() {
-        this.personList = new ArrayList<>();
+        this.personDao = new PersonDao();
+        this.personList = personDao.listPersons();
     }
 
     @Override
@@ -86,28 +86,22 @@ public class TableModelPerson extends AbstractTableModel {
 
     public void updatePerson(Person person, int index) {
         this.personList.set(index, person);
+        this.personDao.alterPerson(person);
         fireTableDataChanged();
     }
 
     public void addPerson(Person person) {
         this.personList.add(person);
+        this.personDao.savePerson(person);
         int lastIndex = getRowCount() - 1;
         fireTableRowsInserted(lastIndex, lastIndex);
     }
 
     public void removeSelectedPerson(int lineIndex) {
+        this.personDao.deletePerson(getSelectedPerson(lineIndex));
         this.personList.remove(lineIndex);
         fireTableDataChanged();
     }
 
-    public void addPersons(List<Person> personList) {
-        int index = getRowCount();
-        this.personList.addAll(personList);
-        fireTableRowsInserted(index, index + personList.size());
-    }
 
-    public void clearTable() {
-        this.personList.clear();
-        fireTableDataChanged();
-    }
 }

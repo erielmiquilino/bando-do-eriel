@@ -27,12 +27,15 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
     public void delete(T t){
         getSession().beginTransaction();
         getSession().delete(t);
+        getSession().getTransaction().commit();
+        getSession().clear();
         getSession().close();
     }
 
     public void alter(T t){
         getSession().beginTransaction();
         getSession().update(t);
+        getSession().getTransaction().commit();
         getSession().close();
     }
 

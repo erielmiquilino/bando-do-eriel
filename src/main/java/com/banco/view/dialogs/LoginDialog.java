@@ -1,5 +1,6 @@
 package com.banco.view.dialogs;
 
+import com.banco.model.user.UserDao;
 import com.banco.view.frames.MainFrame;
 
 import javax.swing.*;
@@ -13,6 +14,8 @@ public class LoginDialog extends JDialog {
     private JPasswordField txtPassword;
     private JTextField txtUser;
 
+    private UserDao userDao;
+
     public LoginDialog() {
         setTitle("Bem vindo ao banco do ian");
         setSize(new Dimension(300,150));
@@ -20,6 +23,8 @@ public class LoginDialog extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+
+        userDao = new UserDao();
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -52,7 +57,9 @@ public class LoginDialog extends JDialog {
     private void onOK() {
 
         if (txtUser.getText().equals("admin") && String.valueOf(txtPassword.getPassword()).equals("admin")) {
-            System.out.println("ENTROU");
+            dispose();
+            new MainFrame();
+        } else if (userDao.isValidUser(txtUser.getText(), String.valueOf(txtPassword.getPassword()))){
             dispose();
             new MainFrame();
         } else {

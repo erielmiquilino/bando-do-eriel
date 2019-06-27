@@ -13,9 +13,9 @@
         <property name="hibernate.format_sql">false</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="com.banco.model.Account" />
-        <mapping class="com.banco.model.Address" />
-        <mapping class="com.banco.model.Person" />
+        <mapping class="com.banco.model.account.Account" />
+        <mapping class="com.banco.model.person.Address" />
+        <mapping class="com.banco.model.person.Person" />
         <mapping class="com.banco.model.user.User" />
 
 

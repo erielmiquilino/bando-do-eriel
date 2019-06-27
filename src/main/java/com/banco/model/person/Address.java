@@ -1,4 +1,4 @@
-package com.banco.model;
+package com.banco.model.person;
 
 
 import lombok.EqualsAndHashCode;

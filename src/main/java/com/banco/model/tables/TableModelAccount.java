@@ -1,6 +1,7 @@
 package com.banco.model.tables;
 
-import com.banco.model.Account;
+import com.banco.model.account.Account;
+import com.banco.model.account.AccountDao;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -13,16 +14,15 @@ public class TableModelAccount extends AbstractTableModel {
     private static final int ACCOUNT = 2;
     private static final int ACCOUNT_TYPE = 3;
 
+    private AccountDao accountDao;
     private String[] columns = new String[] {"ID","Agencia","Conta","Tipo"};
     private List<Account> accountList;
 
     public TableModelAccount(List<Account> accountList) {
+        this.accountDao = new AccountDao();
         this.accountList = accountList;
     }
 
-    public TableModelAccount() {
-        this.accountList = new ArrayList<>();
-    }
 
     @Override
     public int getRowCount() {
@@ -84,32 +84,19 @@ public class TableModelAccount extends AbstractTableModel {
         return this.accountList.get(lineIndex);
     }
 
-    public void addAccount(Account account) {
-        this.accountList.add(account);
-        int lastIndex = getRowCount() - 1;
-        fireTableRowsInserted(lastIndex, lastIndex);
-    }
 
     public void updateAccount(Account account, int index) {
         this.accountList.set(index, account);
+        this.accountDao.alterAccount(account);
         fireTableDataChanged();
     }
 
     public void removeSelectedAccount(int lineIndex) {
+        this.accountDao.deleteAccount(getSelectedAccount(lineIndex));
         this.accountList.remove(lineIndex);
         fireTableDataChanged();
     }
 
-    public void addAccounts(List<Account> accountList) {
-        int index = getRowCount();
-        this.accountList.addAll(accountList);
-        fireTableRowsInserted(index, index + accountList.size());
-    }
-
-    public void clearTable() {
-        this.accountList.clear();
-        fireTableDataChanged();
-    }
 
 
 }

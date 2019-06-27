@@ -1,6 +1,6 @@
 package com.banco.controller;
 
-import com.banco.model.Person;
+import com.banco.model.person.Person;
 
 import javax.swing.*;
 import java.util.InputMismatchException;

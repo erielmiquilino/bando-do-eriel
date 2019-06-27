@@ -1,7 +1,7 @@
 package com.banco.view.dialogs;
 
-import com.banco.model.Account;
-import com.banco.model.AccountType;
+import com.banco.model.account.Account;
+import com.banco.model.account.AccountType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +14,8 @@ public class AccountPersonFormDialog extends JDialog {
     private JComboBox<AccountType> cmbAccountType;
     private JTextField txtAccount;
     private JTextField txtAgency;
+
+    private boolean validDialog;
 
     private Account account;
 
@@ -58,6 +60,7 @@ public class AccountPersonFormDialog extends JDialog {
 
     private void onOK() {
         getFormValues();
+        validDialog = true;
         dispose();
     }
 
@@ -79,6 +82,7 @@ public class AccountPersonFormDialog extends JDialog {
     }
 
     private void onCancel() {
+        validDialog = false;
         dispose();
     }
 
@@ -86,5 +90,10 @@ public class AccountPersonFormDialog extends JDialog {
     private void createUIComponents() {
         cmbAccountType = new JComboBox<>();
         cmbAccountType.setModel(new DefaultComboBoxModel<>(AccountType.values()));
+    }
+
+
+    public boolean isValidDialog() {
+        return validDialog;
     }
 }
