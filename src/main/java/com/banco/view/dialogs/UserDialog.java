@@ -1,7 +1,7 @@
 package com.banco.view.dialogs;
 
 import com.banco.controller.ValidationUser;
-import com.banco.model.User;
+import com.banco.model.user.User;
 
 import javax.swing.*;
 import java.awt.*;

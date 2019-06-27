@@ -1,6 +1,6 @@
 package com.banco.controller;
 
-import com.banco.model.User;
+import com.banco.model.user.User;
 
 import javax.swing.*;
 

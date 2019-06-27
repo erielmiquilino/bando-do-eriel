@@ -1,6 +1,7 @@
 package com.banco.model.tables;
 
-import com.banco.model.User;
+import com.banco.model.user.User;
+import com.banco.model.user.UserDao;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -12,15 +13,14 @@ public class TableModelUser extends AbstractTableModel {
     private static final int NAME = 1;
     private static final int EMAIL = 2;
 
+    private UserDao userDao;
     private String[] columns = new String[] {"ID","Nome","Email"};
     private List<User> userList;
 
-    public TableModelUser(List<User> userList) {
-        this.userList = userList;
-    }
 
     public TableModelUser() {
-        this.userList = new ArrayList<>();
+        this.userDao = new UserDao();
+        this.userList = this.userDao.listUsers();
     }
 
     @Override
@@ -82,12 +82,14 @@ public class TableModelUser extends AbstractTableModel {
 
     public void addUser(User user) {
         this.userList.add(user);
+        this.userDao.saveUser(user);
         int lastIndex = getRowCount() - 1;
         fireTableRowsInserted(lastIndex, lastIndex);
     }
 
     public void updateUser(User user ,int index) {
         this.userList.set(index, user);
+        this.userDao.alterUser(user);
         fireTableDataChanged();
     }
 

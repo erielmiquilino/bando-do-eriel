@@ -1,35 +1,32 @@
 package com.banco.model;
 
 import com.banco.model.base.BaseModel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
+@Getter
+@Setter
+@EqualsAndHashCode
+@Table
+@Entity
 public class Account extends BaseModel {
 
+
     private long agency;
+
     private String account;
+
     private AccountType accountType;
 
+    @ManyToOne
+    @JoinColumn(name = "personId")
+    private Person person;
 
-    public long getAgency() {
-        return agency;
-    }
-
-    public void setAgency(long agency) {
-        this.agency = agency;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
 }

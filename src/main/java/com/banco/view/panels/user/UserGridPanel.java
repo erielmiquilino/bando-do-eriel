@@ -1,6 +1,6 @@
 package com.banco.view.panels.user;
 
-import com.banco.model.User;
+import com.banco.model.user.User;
 import com.banco.model.tables.TableModelUser;
 import com.banco.view.dialogs.UserDialog;
 
@@ -20,18 +20,17 @@ public class UserGridPanel {
     private TableModelUser tableModelUser;
 
     public UserGridPanel() {
+
         inclurButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 User user = new User();
 
-                user.setId(getTableModelUser().getRowCount() + 1);
                 user.setCreationDate(LocalDateTime.now());
 
                 UserDialog dialog = new UserDialog(user);
                 dialog.pack();
                 dialog.setVisible(true);
-
 
                 getTableModelUser().addUser(dialog.getUser());
             }
